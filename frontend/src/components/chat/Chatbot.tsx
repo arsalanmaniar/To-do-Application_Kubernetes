@@ -55,6 +55,12 @@ export default function Chatbot({ isOpen, onClose }: ChatbotProps) {
       // Call the backend API
       const response = await chatWithAI(message);
 
+      // Debug: log the full response to understand its structure
+      console.log('Full response from API:', response);
+      console.log('Type of response:', typeof response);
+      console.log('Response has reply?', 'reply' in response);
+      console.log('Reply value:', response?.reply);
+
       // Extract the reply from response
       // The API client interceptor returns response.data directly
       const replyText = response?.reply || "Sorry, I couldn't process that message.";
