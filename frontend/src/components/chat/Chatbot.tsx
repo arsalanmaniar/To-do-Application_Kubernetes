@@ -76,11 +76,12 @@ export default function Chatbot({ isOpen, onClose }: ChatbotProps) {
 
         // Try to find reply in different possible locations
         if (response && typeof response === 'object') {
-          if (response.data && typeof response.data === 'object' && 'reply' in response.data) {
+          const responseAny = response as any;
+          if (responseAny.data && typeof responseAny.data === 'object' && 'reply' in responseAny.data) {
             // This shouldn't happen if the fix is working, but as fallback
-            replyText = response.data.reply;
-          } else if ('reply' in response) {
-            replyText = response.reply;
+            replyText = responseAny.data.reply;
+          } else if ('reply' in responseAny) {
+            replyText = responseAny.reply;
           }
         }
       }

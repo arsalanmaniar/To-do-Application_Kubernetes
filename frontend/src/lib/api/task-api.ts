@@ -29,8 +29,9 @@ export const taskApi = {
       const response = await apiClient.get(url);
       // The backend returns a TaskListResponse object with tasks array inside
       // Extract the tasks array to match what the frontend components expect
-      return response.tasks || response;
-    } catch (error) {
+      const responseAny = response as any;
+      return responseAny.tasks || response;
+    } catch (error: any) {
       console.error('Get tasks API error:', error);
       // Log more details about the error
       if (error.response) {
@@ -54,8 +55,8 @@ export const taskApi = {
   async getTask(taskId: number | string) {
     try {
       const response = await apiClient.get(`/api/v1/tasks/${taskId}`);
-      return response;
-    } catch (error) {
+      return response as any;
+    } catch (error: any) {
       console.error('Get task API error:', error);
       throw error;
     }
@@ -82,8 +83,8 @@ export const taskApi = {
       }
 
       const response = await apiClient.post('/api/v1/tasks', payload);
-      return response;
-    } catch (error) {
+      return response as any;
+    } catch (error: any) {
       console.error('Create task API error:', error);
       throw error;
     }
@@ -113,8 +114,8 @@ export const taskApi = {
       }
 
       const response = await apiClient.put(`/api/v1/tasks/${taskId}`, payload);
-      return response;
-    } catch (error) {
+      return response as any;
+    } catch (error: any) {
       console.error('Update task API error:', error);
       throw error;
     }
@@ -128,8 +129,8 @@ export const taskApi = {
   async deleteTask(taskId: number | string) {
     try {
       const response = await apiClient.delete(`/api/v1/tasks/${taskId}`);
-      return response;
-    } catch (error) {
+      return response as any;
+    } catch (error: any) {
       console.error('Delete task API error:', error);
       throw error;
     }
@@ -146,8 +147,8 @@ export const taskApi = {
       const response = await apiClient.patch(`/api/v1/tasks/${taskId}/complete`, {
         completed: Boolean(completed)
       });
-      return response;
-    } catch (error) {
+      return response as any;
+    } catch (error: any) {
       console.error('Toggle task completion API error:', error);
       throw error;
     }

@@ -54,7 +54,13 @@ export const calendarApi = {
     // Due to the response interceptor in client.ts, the response is already the data payload
     // So response is the actual CalendarEventListResponse object
     if (response && typeof response === 'object' && 'events' in response) {
-      return response as CalendarEventListResponse;
+      const responseAny = response as any;
+      return {
+        events: responseAny.events || [],
+        total: responseAny.total || 0,
+        limit: responseAny.limit || limit,
+        offset: responseAny.offset || offset
+      };
     } else {
       // If response structure is unexpected, return a default structure
       return {
@@ -68,22 +74,22 @@ export const calendarApi = {
 
   async createCalendarEvent(data: CreateCalendarEventRequest): Promise<CalendarEvent> {
     const response = await apiClient.post('/api/v1/calendar', data);
-    return response.data;
+    return response as unknown as CalendarEvent;
   },
 
   async getCalendarEventById(id: string): Promise<CalendarEvent> {
     const response = await apiClient.get(`/api/v1/calendar/${id}`);
-    return response.data;
+    return response as unknown as CalendarEvent;
   },
 
   async updateCalendarEvent(id: string, data: UpdateCalendarEventRequest): Promise<CalendarEvent> {
     const response = await apiClient.put(`/api/v1/calendar/${id}`, data);
-    return response.data;
+    return response as unknown as CalendarEvent;
   },
 
   async patchCalendarEvent(id: string, data: UpdateCalendarEventRequest): Promise<CalendarEvent> {
     const response = await apiClient.patch(`/api/v1/calendar/${id}`, data);
-    return response.data;
+    return response as unknown as CalendarEvent;
   },
 
   async deleteCalendarEvent(id: string): Promise<void> {

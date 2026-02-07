@@ -10,5 +10,5 @@ export interface ChatResponse {
 
 export const chatWithAI = async (message: string): Promise<ChatResponse> => {
   const response = await apiClient.post('/api/v1/chat', { message });
-  return response; // apiClient interceptor already returns response.data
+  return response as unknown as ChatResponse;
 };

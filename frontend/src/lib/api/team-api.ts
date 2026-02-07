@@ -38,7 +38,13 @@ export const teamApi = {
     // Due to the response interceptor in client.ts, the response is already the data payload
     // So response is the actual TeamListResponse object
     if (response && typeof response === 'object' && 'teams' in response) {
-      return response as TeamListResponse;
+      const responseAny = response as any;
+      return {
+        teams: responseAny.teams || [],
+        total: responseAny.total || 0,
+        limit: responseAny.limit || limit,
+        offset: responseAny.offset || offset
+      };
     } else {
       // If response structure is unexpected, return a default structure
       return {
@@ -52,22 +58,22 @@ export const teamApi = {
 
   async createTeam(data: CreateTeamRequest): Promise<Team> {
     const response = await apiClient.post('/api/v1/teams', data);
-    return response.data;
+    return response as unknown as Team;
   },
 
   async getTeamById(id: string): Promise<Team> {
     const response = await apiClient.get(`/api/v1/teams/${id}`);
-    return response.data;
+    return response as unknown as Team;
   },
 
   async updateTeam(id: string, data: UpdateTeamRequest): Promise<Team> {
     const response = await apiClient.put(`/api/v1/teams/${id}`, data);
-    return response.data;
+    return response as unknown as Team;
   },
 
   async patchTeam(id: string, data: UpdateTeamRequest): Promise<Team> {
     const response = await apiClient.patch(`/api/v1/teams/${id}`, data);
-    return response.data;
+    return response as unknown as Team;
   },
 
   async deleteTeam(id: string): Promise<void> {

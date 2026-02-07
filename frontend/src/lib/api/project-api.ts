@@ -38,7 +38,13 @@ export const projectApi = {
     // Due to the response interceptor in client.ts, the response is already the data payload
     // So response is the actual ProjectListResponse object
     if (response && typeof response === 'object' && 'projects' in response) {
-      return response as ProjectListResponse;
+      const responseAny = response as any;
+      return {
+        projects: responseAny.projects || [],
+        total: responseAny.total || 0,
+        limit: responseAny.limit || limit,
+        offset: responseAny.offset || offset
+      };
     } else {
       // If response structure is unexpected, return a default structure
       return {
@@ -52,22 +58,22 @@ export const projectApi = {
 
   async createProject(data: CreateProjectRequest): Promise<Project> {
     const response = await apiClient.post('/api/v1/projects', data);
-    return response.data;
+    return response as unknown as Project;
   },
 
   async getProjectById(id: string): Promise<Project> {
     const response = await apiClient.get(`/api/v1/projects/${id}`);
-    return response.data;
+    return response as unknown as Project;
   },
 
   async updateProject(id: string, data: UpdateProjectRequest): Promise<Project> {
     const response = await apiClient.put(`/api/v1/projects/${id}`, data);
-    return response.data;
+    return response as unknown as Project;
   },
 
   async patchProject(id: string, data: UpdateProjectRequest): Promise<Project> {
     const response = await apiClient.patch(`/api/v1/projects/${id}`, data);
-    return response.data;
+    return response as unknown as Project;
   },
 
   async deleteProject(id: string): Promise<void> {

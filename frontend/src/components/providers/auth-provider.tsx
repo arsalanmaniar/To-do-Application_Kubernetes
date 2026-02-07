@@ -59,9 +59,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(true);
     try {
       const response = await authService.signIn({ email, password });
-      if (response?.access_token) {
+      const responseAny = response as any;
+      if (responseAny?.access_token) {
         // Store the token in local storage
-        TokenUtils.setToken(response.access_token);
+        TokenUtils.setToken(responseAny.access_token);
 
         // Get the user profile after successful sign in
         try {
@@ -104,12 +105,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(true);
     try {
       const response = await authService.register({ name, email, password });
-      if (response?.id) {
+      const responseAny = response as any;
+      if (responseAny?.id) {
         // After successful registration, sign in the user
         const signInResponse = await authService.signIn({ email, password });
-        if (signInResponse?.access_token) {
+        const signInResponseAny = signInResponse as any;
+        if (signInResponseAny?.access_token) {
           // Store the token in local storage
-          TokenUtils.setToken(signInResponse.access_token);
+          TokenUtils.setToken(signInResponseAny.access_token);
 
           // Get the user profile after successful sign in
           try {
@@ -138,9 +141,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       if (TokenUtils.isAuthenticated()) {
         const profile = await authService.getProfile();
-        if (profile?.data) {
-          setUser(profile.data);
-          return { user: profile.data, token: TokenUtils.getToken() };
+        const profileAny = profile as any;
+        if (profileAny?.data) {
+          setUser(profileAny.data);
+          return { user: profileAny.data, token: TokenUtils.getToken() };
         } else {
           setUser(null);
           return null;
