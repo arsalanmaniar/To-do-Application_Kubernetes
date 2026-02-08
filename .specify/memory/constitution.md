@@ -1,118 +1,55 @@
-<!--
-SYNC IMPACT REPORT:
-Version change: 1.1.0 → 2.0.0
-Modified principles: Spec-First Development → Agentic Dev Stack Only, Agentic Purity → No Manual Coding, Determinism → Spec Traceability, Security-by-Design → MCP Security Rules, Separation of Concerns → Architecture Constraints, Stateless Architecture → AI-MCP Integration
-Added sections: Phase III Scope, AI & MCP Rules, Evaluation Criteria
-Removed sections: None
-Templates requiring updates: ⚠ pending - .specify/templates/plan-template.md, .specify/templates/spec-template.md, .specify/templates/tasks-template.md
-Follow-up TODOs: RATIFICATION_DATE needs to be set to original adoption date
--->
-
-# AI-Powered Todo Chatbot Phase III Constitution
+# [PROJECT_NAME] Constitution
+<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
 
 ## Core Principles
 
-### Agentic Dev Stack Only
-Use Agentic Dev Stack only: Spec → Plan → Tasks → Implement. No implementation before a written and approved specification. All code must be generated via Claude Code prompts following the Specify → Plan → Implement → Review workflow with zero manual coding.
+### [PRINCIPLE_1_NAME]
+<!-- Example: I. Library-First -->
+[PRINCIPLE_1_DESCRIPTION]
+<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
 
-### No Manual Coding
-No manual coding allowed. All code must be generated via Claude Code / CLI. Changes only allowed via spec revision or re-generation through Claude Code.
+### [PRINCIPLE_2_NAME]
+<!-- Example: II. CLI Interface -->
+[PRINCIPLE_2_DESCRIPTION]
+<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
 
-### Spec Traceability
-Every change must trace back to an approved spec. Same spec must always produce functionally equivalent output. Every feature must map directly to a written spec requirement. Spec language must be clear, unambiguous, and implementation-agnostic.
+### [PRINCIPLE_3_NAME]
+<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+[PRINCIPLE_3_DESCRIPTION]
+<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
 
-### MCP Security Rules
-AI agents can ONLY interact with tasks via MCP tools. MCP tools must be stateless and DB-backed. No direct DB access from agents outside MCP. Authentication, authorization, and data isolation enforced at every layer. Every API endpoint must enforce authentication and user ownership. All data access must be filtered by authenticated user ID.
+### [PRINCIPLE_4_NAME]
+<!-- Example: IV. Integration Testing -->
+[PRINCIPLE_4_DESCRIPTION]
+<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
 
-### Architecture Constraints
-Backend: FastAPI (stateless), AI Logic: OpenAI Agents SDK only, MCP Server: Official MCP SDK only, Database: Neon Serverless PostgreSQL via SQLModel. Frontend uses Next.js 16+ (App Router only), Authentication uses Better Auth (JWT-based). Conversation state must persist in DB, server holds no memory.
+### [PRINCIPLE_5_NAME]
+<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
+[PRINCIPLE_5_DESCRIPTION]
+<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
 
-### AI-MCP Integration
-AI agents can ONLY interact with tasks via MCP tools. MCP tools must be stateless and DB-backed. No direct DB access from agents outside MCP. Backend must remain stateless and JWT-driven. All API routes require valid JWT tokens. Requests without valid JWT return 401 Unauthorized. JWT must be signed using shared secret and time-limited (expiry enforced).
+### [PRINCIPLE_6_NAME]
 
-## Additional Constraints
 
-Technology Constraints:
-- Backend: FastAPI (stateless)
-- AI Logic: OpenAI Agents SDK only
-- MCP Server: Official MCP SDK only
-- Database: Neon Serverless PostgreSQL via SQLModel
-- Frontend: Next.js 16+ (App Router only)
-- Authentication: Better Auth (JWT-based)
-- Spec System: Spec-Kit Plus
-- Development Style: CLI-first, no GUI-based manual setup
+[PRINCIPLE__DESCRIPTION]
 
-Process Constraints:
-- Use Agentic Dev Stack only: Spec → Plan → Tasks → Implement
-- No manual coding allowed
-- No direct edits to generated code
-- All code must be generated via Claude Code / CLI
-- Every change must trace back to an approved spec
-- Changes only allowed via:
-  - Spec revision
-  - Re-generation through Claude Code
-- Each phase must follow:
-  Specify → Plan → Tasks → Implement
+## [SECTION_2_NAME]
+<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
 
-Security Constraints:
-- AI agents can ONLY interact with tasks via MCP tools
-- MCP tools must be stateless and DB-backed
-- No direct DB access from agents outside MCP
-- All API routes require valid JWT tokens
-- Requests without valid JWT return 401 Unauthorized
-- JWT must be:
-  - Signed using shared secret
-  - Time-limited (expiry enforced)
-- Backend must independently verify JWT
-- No hardcoded secrets; all secrets via environment variables
-- REST API must follow HTTP standards (status codes, verbs, idempotency)
-- Database schema must be migration-safe and reproducible
+[SECTION_2_CONTENT]
+<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
 
-## Phase III Scope
+## [SECTION_3_NAME]
+<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
 
-- AI-powered Todo Chatbot
-- Natural language task management
-- Stateless chat endpoint with persistent history
-- Resume conversations after server restart
-- Conversation state must persist in DB, server holds no memory
-
-## AI & MCP Rules
-
-- AI agents can ONLY interact with tasks via MCP tools
-- MCP tools must be stateless and DB-backed
-- No direct DB access from agents outside MCP
-- MCP tools must be stateless and DB-backed
-- Conversation state must persist in DB, server holds no memory
-- AI Logic: OpenAI Agents SDK only
-- MCP Server: Official MCP SDK only
-
-## Development Workflow
-
-Key Standards:
-- Use Agentic Dev Stack only: Spec → Plan → Tasks → Implement
-- Every feature must map directly to a written spec requirement
-- Every API endpoint must:
-  - Enforce authentication
-  - Enforce user ownership
-- All data access must be filtered by authenticated user ID
-- No hardcoded secrets; all secrets via environment variables
-- REST API must follow HTTP standards (status codes, verbs, idempotency)
-- Database schema must be migration-safe and reproducible
-- Spec language must be clear, unambiguous, and implementation-agnostic
-- Conversation state must persist in DB, server holds no memory
-- AI agents can ONLY interact with tasks via MCP tools
-
-## Evaluation Criteria
-
-- Spec compliance is mandatory
-- Correct MCP tool usage
-- Clean agent behavior mapping to user intent
-- Friendly confirmations and graceful error handling
-- Stateless chat endpoint with persistent history
-- Resume conversations after server restart
+[SECTION_3_CONTENT]
+<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
 
 ## Governance
+<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-Objective: Transform a console-based Todo application into a modern, multi-user, production-ready AI-powered Todo Chatbot using a fully Spec-Driven and Agentic Development workflow (Claude Code + Spec-Kit Plus), with zero manual coding. All PRs/reviews must verify compliance with these principles. Complexity must be justified. Use CLAUDE.md for runtime development guidance. This constitution overrides previous phase rules where conflicts exist.
+[GOVERNANCE_RULES]
+<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
 
-**Version**: 2.0.0 | **Ratified**: TODO(RATIFICATION_DATE) | **Last Amended**: 2026-02-02
+**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
+<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
