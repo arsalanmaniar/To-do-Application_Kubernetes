@@ -22,7 +22,7 @@ ENV BETTER_AUTH_SECRET=your-super-secret-jwt-key-here-make-sure-it-is-at-least-3
 ENV DB_ECHO=False
 
 # Set PYTHONPATH to include both the project root and backend directory for proper imports
-ENV PYTHONPATH=/app:/app/backend:$PYTHONPATH
+ENV PYTHONPATH=/app:/app/backend
 
 # Start the application using uvicorn from the backend directory
 CMD ["sh", "-c", "cd /app/backend && python -m uvicorn main:app --host 0.0.0.0 --port 8000"]
