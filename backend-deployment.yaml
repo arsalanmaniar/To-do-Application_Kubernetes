@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: hackathon-app
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: hackathon-backend:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          value: "sqlite:///./test.db"
+        - name: BETTER_AUTH_SECRET
+          value: "your-super-secret-jwt-key-here-make-sure-it-is-at-least-32-characters-long"
+        - name: DB_ECHO
+          value: "False"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: hackathon-app
+spec:
+  type: NodePort
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
